@@ -61,14 +61,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     name = ""
     url = "https://github.com/anthares101/raptor-blog"
     title = "Check the code!"
-  [[menu.main]]
-    weight = 4
-    identifier = "WriteUps"
-    pre = "<i class='fa-solid fa-file-lines'></i>"
-    post = ""
-    name = ""
-    url = "https://anthares101.com"
-    title = "Anthares WriteUps"
 
 [params]
   # site default theme ["auto", "light", "dark"]
@@ -138,6 +130,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     GitHub = "Anthares101"
     Linkedin = "angelherediaperez"
     Twitter = "@Anthares101"
+    Ctftime = "133772"
+    Hackthebox = "366635"
+    Writeups = true
 
   #  Page global config
   [params.page]
