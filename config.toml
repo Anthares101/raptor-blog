@@ -22,6 +22,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # Author config
 [author]
   name = "Anthares101"
+  link = "/posts/"
 
 # Menu config
 [menu]
@@ -59,7 +60,15 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     post = ""
     name = ""
     url = "https://github.com/anthares101/raptor-blog"
-    title = "GitHub"
+    title = "Check the code!"
+  [[menu.main]]
+    weight = 4
+    identifier = "WriteUps"
+    pre = "<i class='fa-solid fa-file-lines'></i>"
+    post = ""
+    name = ""
+    url = "https://anthares101.com"
+    title = "Anthares WriteUps"
 
 [params]
   # site default theme ["auto", "light", "dark"]
@@ -155,16 +164,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       Twitter = true
       Facebook = true
       Linkedin = true
-      Whatsapp = true
-      Telegram = true
-    #  Page SEO config
-    [params.page.seo]
-      # image URL
-      images = []
-      # Publisher info
-      [params.page.seo.publisher]
-        name = ""
-        logoUrl = ""
 
   #  Site SEO config
   [params.seo]
@@ -172,6 +171,10 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     image = ""
     # thumbnail URL
     thumbnailUrl = ""
+
+[params.app]
+    # optional site title override for the app when added to an iOS home screen or Android launcher
+    title = "Raptor Blog"
 
 [params.search]
   enable = true
