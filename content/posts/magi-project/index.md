@@ -6,7 +6,7 @@ lastmod: 2022-08-09
 draft: false
 tags: ["kubernetes", "blue team", "homelab"]
 categories: ["Infrastructure"]
-images: ["Assembly1.jpg", "Assembly2.jpg", "Assembly3.jpg"]
+images: ["/posts/magi-project/images/Assembly1.jpg", "/posts/magi-project/images/Assembly2.jpg", "/posts/magi-project/images/Assembly3.jpg"]
 featuredImage: "images/Assembly3.jpg"
 featuredImagePreview: "images/Assembly3.jpg"
 ---
