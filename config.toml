@@ -4,7 +4,7 @@ baseURL = "https://blog.anthares101.com/"
 theme = "LoveIt"
 
 # website title
-title = "Anthares101 Blog"
+title = "Raptor Blog"
 
 # language code ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "en"
@@ -12,9 +12,6 @@ languageName = "English"
 
 # whether to use robots.txt
 enableRobotsTXT = true
-# whether to use git commit log
-enableGitInfo = true
-
 
 # whether to use emoji code
 enableEmoji = true
@@ -55,14 +52,20 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     name = "Categories"
     url = "/categories/"
     title = ""
+  [[menu.main]]
+    weight = 4
+    identifier = "GitHub"
+    pre = "<i class='fab fa-github fa-fw' aria-hidden='true'></i>"
+    post = ""
+    name = ""
+    url = "https://github.com/anthares101/raptor-blog"
+    title = "GitHub"
 
 [params]
   # site default theme ["auto", "light", "dark"]
   defaultTheme = "auto"
-  # public git repo url only then enableGitInfo is true
-  gitRepo = "https://github.com/anthares101/raptor-blog"
   # website title for Open Graph and Twitter Cards
-  title = "Anthares101 Blog"
+  title = "Raptor Blog"
   # website description for RSS, SEO, Open Graph and Twitter Cards
   description = "This is my blog"
 
@@ -80,7 +83,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of the LOGO
       logo = ""
       # title name
-      name = "Anthares101 Blog"
+      name = "Raptor Blog"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = "<i class='fa-solid fa-flag'></i>"
       # you can add extra information after the name (HTML format is supported), such as icons
@@ -110,7 +113,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       #  title shown in home page (HTML format is supported)
       title = "Anthares101"
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "This is My New Hugo Site"
+      subtitle = "Site under construction!"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
