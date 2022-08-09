@@ -50,19 +50,19 @@ Oh! I almost forgot about it. Keep in mind that the 64 bit version of Raspbian w
 
 After waiting a bit (I’m in Spain so it is a long way from the US) a received my order!
 
-![Assembly1.jpg](images/Assembly1.jpg)
+<img src="images/Assembly1.jpg" alt="Image of the cluster assembly">
 
 You can ask them to do the assembly process or even install the applications you want into the cluster to avoid wasting time setting it up but... that is not fun right?
 
 The assembly process is documented fairly well in their site and you will only need a screwdriver and some different size heads for it in order to follow all the process.
 
-![Assembly2.jpg](images/Assembly2.jpg)
+<img src="images/Assembly2.jpg" alt="Image of the cluster assembly">
 
 By the way, you can ask them to only send the parts for the cluster but not the actual boards for it. The thing is that with the chip shortage we have right now the price they sell them for is just too good to not get all from them.
 
 The assembly took me around 2 hours or so but it was pretty fun to do and it looks incredible:
 
-![Assembly3.jpg](images/Assembly3.jpg)
+<img src="images/Assembly3.jpg" alt="Image of the cluster assembly">
 
 ## Preparing the SD cards
 
@@ -76,7 +76,7 @@ I will use the Raspberry Pi imager program to put Raspbian in the SD cards. You 
 
 There is an option in the program for custom images that works like a charm:
 
-![imager](images/imager.png)
+<img src="images/imager.png" alt="Pi imager image">
 
 It will take a while just to prepare one card so imagine 3 of them.
 
@@ -195,7 +195,7 @@ Make sure to run `sudo exportfs -ra` to update NFS exports and also to check tha
 
 So we have a Kubernetes cluster but it needs a bit of tweaking
 
-![checkNodes](images/checkNodes.png)
+<img src="images/checkNodes.png" alt="CLI image showing the nodes up and running">
 
 First of all, since I have 3 nodes I want to taint and label the master node to control what applications can be scheduled to it:
 
@@ -318,7 +318,7 @@ Cheers to the author because is awesome and works like a charm. Just follow the 
 
 Once everything is installed you should be able to acces Prometheus ,Grafana and Alert Manager. Just check the ingresses information to know where to access the services, this is how Grafana looks (Yeah the picture is one week after configuring all):
 
-![grafana](images/grafana.png)
+<img src="images/grafana.png" alt="Grafana dashboard image with the cluster data">
 
 Since I don’t think that I will be using Prometheus and Alert Manager much I will just delete the ingresses to them and use kubectl port-forward to access them instead of having them open to the network.
 
@@ -461,16 +461,6 @@ PD: Someone noticed the Evangelion references?
   figure {
     margin: 1.25em 0;
     page-break-inside: avoid;
-  }
-
-  .icon {
-    display: inline-block;
-    max-width: 1.2em;
-    max-height: 1.2em;
-    text-decoration: none;
-    vertical-align: text-bottom;
-    margin-right: 0.5em;
-    margin-top: 0.1em;
   }
 
   .bookmark {
