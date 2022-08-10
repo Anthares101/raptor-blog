@@ -159,6 +159,27 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       Twitter = true
       Facebook = true
       Linkedin = true
+      Whatsapp = false
+      Pinterest = false
+      Tumblr = false
+      HackerNews = false
+      Reddit = false
+      VK = false
+      Buffer = false
+      Xing = false
+      Line = false
+      Instapaper = false
+      Pocket = false
+      Flipboard = false
+      Weibo = false
+      Blogger = false
+      Baidu = false
+      Odnoklassniki = false
+      Evernote = false
+      Skype = false
+      Trello = false
+      Mix = false
+
 
   #  Site SEO config
   [params.seo]
