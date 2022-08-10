@@ -477,7 +477,6 @@ PD: Someone noticed the Evangelion references?
     overflow: hidden;
     text-overflow: ellipsis;
     height: 1.75em;
-    white-space: nowrap;
   }
 
   .bookmark-text {
