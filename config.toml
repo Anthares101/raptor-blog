@@ -79,7 +79,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     desktopMode = "fixed"
     # mobile header mode ["fixed", "normal", "auto"]
     mobileMode = "auto"
-    #  Header title config
+    # Header title config
     [params.header.title]
       # URL of the LOGO
       logo = ""
@@ -89,17 +89,17 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       pre = "<i class='fa-solid fa-flag'></i>"
       # you can add extra information after the name (HTML format is supported), such as icons
       post = ""
-      #  whether to use typeit animation for title name
+      # whether to use typeit animation for title name
       typeit = false
 
   # Footer config
   [params.footer]
     enable = true
-    #  whether to show Hugo and theme info
+    # whether to show Hugo and theme info
     hugo = false
-    #  whether to show copyright info
+    # whether to show copyright info
     copyright = true
-    #  whether to show the author
+    # whether to show the author
     author = true
     # Site creation time
     since = 2022
@@ -111,7 +111,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       enable = true
       # URL of avatar shown in home page
       avatarURL = "/images/avatar.jpg"
-      #  title shown in home page (HTML format is supported)
+      # title shown in home page (HTML format is supported)
       title = "Anthares101"
       # subtitle shown in home page (HTML format is supported)
       subtitle = "Always a good time to learn new things"
@@ -134,21 +134,33 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     Hackthebox = "366635"
     Writeups = true
 
-  #  Page global config
+  # Page global config
   [params.page]
-    #  whether to hide a page from home page
+    # whether to hide a page from home page
     hiddenFromHomePage = false
-    #  whether to hide a page from search results
+    # whether to hide a page from search results
     hiddenFromSearch = false
-    #  Table of the contents config
+    # Table of the contents config
     [params.page.toc]
       # whether to enable the table of the contents
       enable = true
-      #  whether to keep the static table of the contents in front of the post
+      # whether to keep the static table of the contents in front of the post
       keepStatic = true
       # whether to make the table of the contents in the sidebar automatically collapsed
       auto = true
-    #  Code config
+    [params.page.math]
+      enable = true
+      # default inline delimiter is $ ... $ and \( ... \)
+      inlineLeftDelimiter = ""
+      inlineRightDelimiter = ""
+      # default block delimiter is $$ ... $$, \[ ... \], \begin{equation} ... \end{equation} and some other functions
+      blockLeftDelimiter = ""
+      blockRightDelimiter = ""
+      # KaTeX extension copy_tex
+      copyTex = true
+      # KaTeX extension mhchem
+      mhchem = true
+    # Code config
     [params.page.code]
       # whether to show the copy button of the code block
       copy = true
@@ -180,20 +192,44 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       Trello = false
       Mix = false
 
+  # TypeIt config
+  [params.typeit]
+    # typing speed between each step (measured in milliseconds)
+    speed = 100
+    # blinking speed of the cursor (measured in milliseconds)
+    cursorSpeed = 1000
+    # character used for the cursor (HTML format is supported)
+    cursorChar = "|"
+    # cursor duration after typing finishing (measured in milliseconds, "-1" means unlimited)
+    duration = -1
 
-  #  Site SEO config
+  # Site SEO config
   [params.seo]
     # image URL
     image = "/banner.png"
     # thumbnail URL
     thumbnailUrl = "/banner.png"
 
-[params.app]
+  [params.app]
     # optional site title override for the app when added to an iOS home screen or Android launcher
     title = "Raptor Blog"
 
-[params.search]
-  enable = true
+  [params.search]
+    enable = true
+    type = "lunr"
+    contentLength = 4000
+    placeholder = ""
+    maxResultLength = 10
+    snippetLength = 30
+    highlightTag = "em"
+    absoluteURL = false
+
+  # Compatibility config
+  [params.compatibility]
+    # whether to use Polyfill.io to be compatible with older browsers
+    polyfill = false
+    # whether to use object-fit-images to be compatible with older browsers
+    objectFit = false
 
 # Markup related config in Hugo
 [markup]
@@ -223,3 +259,33 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 6
+
+# Sitemap config
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+# Permalinks config
+[Permalinks]
+  # posts = ":year/:month/:filename"
+  posts = ":filename"
+
+# Options to make output .md files
+[mediaTypes]
+  [mediaTypes."text/plain"]
+    suffixes = ["md"]
+
+# Options to make output .md files
+[outputFormats.MarkDown]
+  mediaType = "text/plain"
+  isPlainText = true
+  isHTML = false
+
+# Options to make hugo output files
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML", "MarkDown"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
