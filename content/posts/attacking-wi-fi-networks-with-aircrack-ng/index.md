@@ -5,7 +5,7 @@ date: 2022-09-10
 lastmod: 2022-09-10
 draft: true
 tags: ["wifi", "red team", "network"]
-categories: ["Cybersecurity"]
+categories: ["Offensive Cybersecurity"]
 images: ["/attacking-wi-fi-networks-with-aircrack-ng/images/banner.jpg"]
 featuredImage: "images/banner.jpg"
 featuredImagePreview: "images/banner.jpg"
@@ -191,7 +191,26 @@ The WPA/WPA2 authentication use a four-way handshake between the client and the 
 
 During the communication the PSK is never sent through the wireless medium. The PSK is only used to generate a PTK (Pairwise Transient Key) that is used as session-only encryption key. This is how the handshake works:
 
-1. 
+0. The shared key is used to generate the PMK (Pairwise Master Key). This key is 256 bits long and both the client and the AP independently calculate that key combining the PSK and SSID name.
+1. The handshake starts now, the AP sends the client a message containing a nonce. In the WPA specification is called ANonce (Authenticator Nonce).
+2. The client now generate another nonce, called SNonce (Supplicant Nonce), and builds the PTK concatenating the PMK, both nonces, the MAC addresses of AP and the client and everything is processed using a cryptographic hash function called PBKDF2-SHA1.
+3. Now the client sends its SNonce to the AP so now also the AP can build the PTK. This message also contains a MIC (Message Integrity Code) which is used to authenticate the client.
+4. The AP replies to the client with a message containing the GTK (Group Temporal Key) used to decrypt multicast and broadcast traffic. Also a MIC is sent to the client (This message is already encrypted).
+5. Lastly, the client sends an ACK to end the authentication process.
+
+<p align="center">
+	<img src="images/4-way-handshake.svg" alt="Image of the WPA 4 way handshake">
+</p>
+
+### Attack
+
+The only way of attacking WPA is brute force, it is not fancy but is what we have. First we will need to capture a 4-way handshake, in order to that we can start capturing packages as we saw earlier and then deauthenticate a user from the target network. That way the client will try to connect back to the AP and we will get the handshake (Also we could just wait for a new client).
+
+You will know that a handshake was captured because `Airodump-ng` will notify you. Now is time for the cracking part, we could use a dictionay attack or a pure brute force attack. `aircrack-ng` could do the job but it is better if you transform the `.cap` file to a `.hccap` file and use Hashcat for better speeds.
+
+If you prefer a rainbow table attack you can use [Pyrit](https://github.com/JPaulMora/Pyrit). There are [databases already prepared](https://www.renderlab.net/projects/WPA-tables/) to use on the internet if you prefer to skip the database building process.
+
+## WPS
 
 
 
