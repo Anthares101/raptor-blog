@@ -43,7 +43,7 @@ In this section we will try to learn a bit how WEP works and why it is so vulner
 
 WEP uses a keystream to encrypt the traffic:
 
-<p align="center">
+<p style="background-color:white; padding-top: 5px;" align="center">
 	<img width="75%" height="75%" src="images/wep-crypt-alt.svg" alt="How WEP encryption works">
 </p>
 
@@ -195,7 +195,7 @@ During the communication the PSK is never sent through the wireless medium. The 
 4. The AP replies to the client with a message containing the GTK (Group Temporal Key) used to decrypt multicast and broadcast traffic. Also a MIC is sent to the client (This message is already encrypted).
 5. Lastly, the client sends an ACK to end the authentication process.
 
-<p align="center">
+<p style="background-color:white; padding-top: 5px;" align="center">
 	<img width="75%" height="75%" src="images/4-way-handshake.svg" alt="Image of the WPA 4 way handshake">
 </p>
 
@@ -225,7 +225,7 @@ The WPS PIN is divided into two halves of 4 digits each. The last digit of the s
 1. Both AP and client initialize keys and internal state.
 2. Client provides first half of the PIN.
 3. Client provides second half of the PIN.
-4. AP sends network configuration.
+4. AP sends network configuration, including the network password.
 
 The AP will send a NACK packet, terminating the process, if the step 2 or 3 fail. That allow us to perform a pretty efficient brute force attack:
 
@@ -247,5 +247,5 @@ This command also will show if the AP has blocked WPS access due to internal ant
 ```
 bully -b <bssid> <interface>
 ```
-The AP could block WPS after certain failed attempts, to try to avoid this we could add more delay between tries (But this is not perfect). There is an attack called Pixie Dust, it is offline and if the AP is vulnerable you could get the PIN in just minutes. Bully offers this attack too with the `-d` flag so use it if possible to improve you chances.
+The AP could block WPS after certain failed attempts, to try to avoid this we could add more delay between tries (But this is not perfect). There is an attack called [Pixie Dust](https://www.quora.com/How-does-a-WPS-pixie-attack-work), it is offline and if the AP is vulnerable you could get the PIN in just minutes thanks to a problem with the random generation of nonces used. Bully offers this attack too with the `-d` flag so use it if possible to improve you chances.
 
