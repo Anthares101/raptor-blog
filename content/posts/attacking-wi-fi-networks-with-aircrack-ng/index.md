@@ -1,9 +1,9 @@
 ---
 title: "Attacking Wi-Fi networks with Aircrack-ng"
 description: Post about how Wi-Fi networks can be attacked with the Aircrack-ng suite
-date: 2022-09-10
-lastmod: 2022-09-10
-draft: true
+date: 2022-09-12
+lastmod: 2022-09-12
+draft: false
 tags: ["wifi", "red team", "network"]
 categories: ["Offensive Cybersecurity"]
 images: ["/attacking-wi-fi-networks-with-aircrack-ng/images/banner.jpg"]
