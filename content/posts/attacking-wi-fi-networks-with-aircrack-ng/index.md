@@ -42,13 +42,10 @@ In this section we will try to learn a bit how WEP works and why is so vulnerabl
 ### How encryption works?
 
 WEP uses a keystream to encrypt the traffic:
-```
-# Keystream generation
-Initialization Vector (IV) + Key --> RC4 --> KeyStream
 
-# Encryption
-Keystream XOR Plaintext = Ciphertext
-```
+<p align="center">
+	<img width="75%" height="75%" src="images/wep-crypt-alt.svg" alt="How WEP encryption works">
+</p>
 
 ### Authentication
 
@@ -199,7 +196,7 @@ During the communication the PSK is never sent through the wireless medium. The 
 5. Lastly, the client sends an ACK to end the authentication process.
 
 <p align="center">
-	<img src="images/4-way-handshake.svg" alt="Image of the WPA 4 way handshake">
+	<img width="75%" height="75%" src="images/4-way-handshake.svg" alt="Image of the WPA 4 way handshake">
 </p>
 
 ### Attack
@@ -212,5 +209,43 @@ If you prefer a rainbow table attack you can use [Pyrit](https://github.com/JPau
 
 ## WPS
 
+Wireless Protected Setup (WPS) was designed as a simple and secure method to setup a protected wireless network. WPS provides three different settup alternative methods:
 
+- Push-Button-Connect
+- Internal-Registrar
+- External-Registrar
+
+The first two methods would need pyhisical or web interface access to the AP but the third option only requires the client to know a 8 digits number PIN.
+
+### Brute Force?
+
+Normally, brute forcing an 8 digits number will require testing for $10^8$ (=100.000.000) combinations but the actual form of authentication used by WPS reduces this number.
+
+The WPS PIN is divided into two halves of 4 digits each. The last digit of the second half is a checksum meaning it is always calculated from the other digits. The authentication process works like this:
+1. Both AP and client initialize keys and internal state.
+2. Client provides first half of the PIN.
+3. Client provides second half of the PIN.
+4. AP sends network configuration.
+
+The AP will send a NACK packet, terminating the process, if the step 2 or 3 fail. That allow us to perform a pretty efficient brute force attack:
+
+1. We start brute forcing the first half of the PIN incrementing the number to try each time.
+2. Once we get to the third step of the authentication process we can repeat the process again with the second half of the PIN.
+3. Enjoy your network access!
+
+With this approach, we reduced the number of combinations to try to 20.000 (=$10^4$ + $10^4$). If we also take into account that the last digit it is just a checksum value, the number of combinations is even smaller: $10^4$ + $10^3$ (=11.000).
+
+There are two tools that can help to exploit this:
+- [Reaver](https://code.google.com/archive/p/reaver-wps/)
+- [Bully](https://github.com/aanarchyy/bully)
+
+We will be using Bully for the brute force attack and a tool called Wash included in Reaver that will allow us to detect vulnerable APs. To start looking for vulnerable APs let's launch Wash:
+```
+wash -i mon0
+```
+This command also will show if the AP has blocked WPS access due to internal anti-bruteforce protection (This is the major limitation of this attack). In order to start the attack just execute:
+```
+bully -b <bssid> <interface>
+```
+The AP could block WPS after certain failed attempts, to try to avoid this we could add more delay between tries (But this is not perfect). There is an attack called Pixie Dust, it is offline and if the AP is vulnerable you could get the PIN in just minutes. Bully offers this attack too with the `-d` flag so use it if possible to improve you chances.
 
