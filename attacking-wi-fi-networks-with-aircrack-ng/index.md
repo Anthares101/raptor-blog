@@ -3,13 +3,13 @@
 
 # Attacking Wi-Fi networks with Aircrack-ng
 
+Before starting, remember that performing any of the attacks explained in this post to networks without previous consent is illegal, this post information is for educational purposes only.
+
 ## Introduction
 
-Before starting, remember that Wi-Fi uses management frames (datagrams are called frames in this context) and data frames. Only data frames are encrypted.
+Wi-Fi uses management frames (datagrams are called frames in this context) and data frames. Only data frames are encrypted and injecting them into the network will require a previous association with the AP. This is not necessary for management frames.
 
-Also, injecting data frames will require a previous association with the AP but this is not necessary for management frames.
-
-About the hardware you will need, make sure your wireless card support monitor mode. Normally you would need a USB external adapter because internal cards won't allow you to use them in monitor mode but maybe you are lucky! Another thing to note is that in Kali or Parrot modified drivers that allow us to enable monitor mode in certain cards are already in place but these drivers should be installed manually in other distributions. There are cool resources to know what to buy out there, like lists of adapters or [what to look for](https://www.aircrack-ng.org/doku.php?id=compatibility_drivers).
+About the hardware you will need, make sure your wireless card support monitor mode. Normally you will need a USB external adapter because internal cards won't allow you to use them in monitor mode but maybe you are lucky! Another thing to note is that in Kali or Parrot modified drivers that allow us to enable monitor mode in certain cards are already in place but these drivers should be installed manually in other distributions. There are cool resources to know what to buy out there, like lists of adapters or [what to look for](https://www.aircrack-ng.org/doku.php?id=compatibility_drivers).
 
 ## Capturing traffic
 
@@ -18,7 +18,7 @@ Before explaining anything more, we need to prepare our network card to be able 
 airmon-ng start <iface>
 ```
 
-After that, you can now start capturing packages in the air:
+After that, you can now start capturing packages in the air. If the last command worked, you should have a new network interface called mon0, that is what you want to use here as interface:
 ```
 airdump-ng -c <channel> -w web_attack <iface>
 ```
@@ -27,7 +27,7 @@ Locking a channel will reduce the noise so it is recommended.
 
 ## WEP
 
-In this section we will try to learn a bit how WEP works and why is so vulnerable and then explain how to perform several types of attacks against it.
+In this section we will try to learn a bit how WEP works and why it is so vulnerable and then explain how to perform several types of attacks against it.
 
 ### How encryption works?
 
@@ -45,7 +45,7 @@ The 802.11 specification describes three possible connection states for a client
 3. Authenticated and associated
 
 About how the authentication process work, the 802.11 original standard specified two authentication modes:
-- **Open Authentication:** If enabled, the client can just send an authentication request frame and the AP will send an authentication result with a success state. After that, the association is performed. This mode can be abuse to perform a "fake auth" and being able to associate to an AP without the key.
+- **Open Authentication:** If enabled, the client can just send an authentication request frame and the AP (Access point) will send an authentication result with a success state. After that, the association is performed. This mode can be abuse to perform a "fake auth" and being able to associate to an AP without the key.
 - **Shared Key Authentication (SKA):** The AP send a challenge text (128 bytes) and the client has to encrypt it using a Initialization Vector (IV) and the key and send it back to the AP. The AP verifies that the challenge was correct and authenticate the client. The association process can be done after that. In this case, we can abuse that the challenge packages are sent in plaintext to capture the different packages to calculate a keystream we can use to associate to the AP and also inject packages without knowing the key.
 
 ### Main flaws
@@ -72,7 +72,7 @@ ARP Replay is the best way of generating more packages in the network to force t
 
 Since ARP use broadcast messages, once we are able to re-inject an ARP package the AP will forward it to all the clients. This will generate new IVs for key cracking.
 
-It is true that, since the network is encrypted an attacker is not able to read the traffic but since the ARP packages have a fixed payload size of 36 bytes and always have the broadcast address set in the frame header (FF:FF:FF:FF:FF:FF), it is easy to identify them even encrypted.
+It is true that, since the network is encrypted, an attacker is not able to read the traffic but since the ARP packages have a fixed payload size of 36 bytes and always have the broadcast address set in the frame header (FF:FF:FF:FF:FF:FF), it is easy to identify them even encrypted.
 
 To perform this attack, we will need to first associtate to the AP. This is how we can perform what is called a "fake auth" abusing open authentication:
 ```
@@ -95,7 +95,7 @@ Everything we have seen is cool but I know we all want one thing: the AP key. Fo
 
 For the tool to work, it needs network packages. 40 bits keys will need about 5000 IVs to be cracked and 104 bits keys could need aroud ten times more.
 
-The command need a password size and as you don't know the password length at the time of the attack, a good strategy is first trying with 64 bits and if it fails for more that 10000 IVs try with 128 bits. The default key size used is 128 bits (WEP-104).
+The command needs a password size and as you don't know the password length at the time of the attack, a good strategy is first trying with 64 bits and if it fails for more that 10000 IVs try with 128 bits. The default key size used is 128 bits (WEP-104).
 
 Let's see how to start a cracking process over the packages we have captured before:
 ```
