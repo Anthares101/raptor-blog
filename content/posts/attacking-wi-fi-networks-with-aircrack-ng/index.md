@@ -203,6 +203,12 @@ During the communication the PSK is never sent through the wireless medium. The 
 
 The only way of attacking WPA is brute force, it is not fancy but is what we have. First we will need to capture a 4-way handshake, in order to that we can start capturing packages as we saw earlier and then deauthenticate a user from the target network. That way the client will try to connect back to the AP and we will get the handshake (Also we could just wait for a new client).
 
+There is another method in order to obtain a handshake, `airbase-ng`. Remember when we use this tool for WEP? Well, thanks to how the WPA handshake works we can start a Rogue AP impersonating a SSID without knowing the password for it (The client send us the MIC in the second step so that is enough) and trick a user to connect to give us the handshake:
+```
+airbase-ng -c <channel> -W 1 -Z 4 -e <ssid> <iface>
+```
+The `-Z` option is used to specify WPA2 options and the `4` stands for CCMP encryption scheme.
+
 You will know that a handshake was captured because `Airodump-ng` will notify you. Now is time for the cracking part, we could use a dictionay attack or a pure brute force attack. `aircrack-ng` could do the job but it is better if you transform the `.cap` file to a `.hccap` file and use Hashcat for better speeds.
 
 If you prefer a rainbow table attack you can use [Pyrit](https://github.com/JPaulMora/Pyrit). There are [databases already prepared](https://www.renderlab.net/projects/WPA-tables/) to use on the internet if you prefer to skip the database building process.
