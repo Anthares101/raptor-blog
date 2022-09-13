@@ -30,7 +30,7 @@ airmon-ng start <iface>
 
 After that, you can now start capturing packages in the air. If the last command worked, you should have a new network interface called mon0, that is what you want to use here as interface:
 ```
-airdump-ng -c <channel> -w web_attack <iface>
+airodump-ng -c <channel> -w web_attack <iface>
 ```
 
 Locking a channel will reduce the noise so it is recommended (`-bssid` option can be used for reducing the noise even more).
