@@ -17,7 +17,7 @@ Before starting, remember that performing any of the attacks explained in this p
 
 ## Introduction
 
-Wi-Fi uses management frames (datagrams are called frames in this context) and data frames. Only data frames are encrypted and injecting them into the network will require a previous association with the AP. This is not necessary for management frames.
+Wi-Fi uses management frames (datagrams are called frames in this context) and data frames. Only data frames are encrypted and injecting them into the network will require a previous association with the AP. This is not necessary for management frames of if we send data frames spoofing some of the clients MAC addresses.
 
 About the hardware you will need, make sure your wireless card support monitor mode. Normally you will need a USB external adapter because internal cards won't allow you to use them in monitor mode but maybe you are lucky! Another thing to note is that in Kali or Parrot modified drivers that allow us to enable monitor mode in certain cards are already in place but these drivers should be installed manually in other distributions. There are cool resources to know what to buy out there, like lists of adapters or [what to look for](https://www.aircrack-ng.org/doku.php?id=compatibility_drivers).
 
@@ -33,7 +33,7 @@ After that, you can now start capturing packages in the air. If the last command
 airdump-ng -c <channel> -w web_attack <iface>
 ```
 
-Locking a channel will reduce the noise so it is recommended.
+Locking a channel will reduce the noise so it is recommended (`-bssid` option can be used for reducing the noise even more).
 
 ## WEP
 
@@ -132,7 +132,7 @@ Let's see how we can get to the cracking step generating ARP packets without cli
    ```
    aireplay-ng -1 6000 -q 10 -a <bssid> <iface>
    ```
-2. Now we can launch the aireplay-ng fragmentation attack, the idea is to be able to get a keystream in order to start forging encrypted packets (make sure to use your wireless adapter mac):
+2. Now we can launch the aireplay-ng fragmentation attack, the idea is to be able to get a keystream in order to start forging encrypted packets (make sure to use your wireless adapter MAC):
    ```
    aireplay-ng -5 -b <bssid> -c <source_mac> <iface>
    ```
