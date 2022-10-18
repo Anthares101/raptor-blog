@@ -609,3 +609,11 @@ ctftime:
   Prefix: https://ctftime.org/team/
   Icon:
     Src: svg/icons/ctftime.svg
+    
+# MyPublicInbox
+mypublicinbox:
+  Weight: 0
+  Title: MyPublicInbox
+  Prefix: https://mypublicinbox.com/
+  Icon:
+    Src: svg/icons/mypublicinbox.svg

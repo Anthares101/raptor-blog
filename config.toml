@@ -133,6 +133,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     Ctftime = "133772"
     Hackthebox = "366635"
     Writeups = true
+    MyPublicInbox = "Anthares101"
 
   # Page global config
   [params.page]
