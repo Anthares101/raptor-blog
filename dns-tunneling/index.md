@@ -122,7 +122,7 @@ This is just [Iodine](https://github.com/yarrick/iodine) encoding all our packag
 
 ### Android
 
-If you want to use all this in an Android device you would need to root it or use this: [andiodine / andiodine · GitLab](https://gitlab.com/andiodine/andiodine).
+If you want to use all this in an Android device you would need to root it or use [Andiodine](https://gitlab.com/andiodine/andiodine).
 
 Basically with this app we are doing the same as we did in the previous section but without the SSH tunnel part. That means 2 things:
 
