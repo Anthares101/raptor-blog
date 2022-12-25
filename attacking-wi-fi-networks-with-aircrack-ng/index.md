@@ -189,6 +189,8 @@ During the communication the PSK is never sent through the wireless medium. The 
 	<img width="75%" height="75%" src="images/4-way-handshake.svg" alt="Image of the WPA 4 way handshake">
 </p>
 
+If you want to learn more about this part, I recommend [this article](https://www.wifi-professionals.com/2019/01/4-way-handshake).
+
 ### Attack
 
 The only way of attacking WPA is brute force, it is not fancy but is what we have. First we will need to capture a 4-way handshake, in order to that we can start capturing packages as we saw earlier and then deauthenticate a user from the target network. That way the client will try to connect back to the AP and we will get the handshake (Also we could just wait for a new client).
@@ -202,6 +204,16 @@ The `-Z` option is used to specify WPA2 options and the `4` stands for CCMP encr
 You will know that a handshake was captured because `Airodump-ng` will notify you. Now is time for the cracking part, we could use a dictionay attack or a pure brute force attack. `aircrack-ng` could do the job but it is better if you transform the `.cap` file to a `.hccap` file and use Hashcat for better speeds.
 
 If you prefer a rainbow table attack you can use [Pyrit](https://github.com/JPaulMora/Pyrit). There are [databases already prepared](https://www.renderlab.net/projects/WPA-tables/) to use on the internet if you prefer to skip the database building process.
+
+#### Clientless attack
+
+If you are lucky, maybe the AP is vulnerable to what is called a PMKID attack. Basically, some APs with roaming features enabled would send to the client something called PMKID to make the re-association process faster.
+
+```
+PMKID = HMAC-SHA1-128(PMK, "PMK Name" | MAC_AP | MAC_STA)
+```
+
+This happens during the first part of the handshake so, an attacker, would be able to capture the PMKID to crack the PSK by just trying to associate to the AP without the interaction of any user. I won´t cover how to do this here because you need some extra stuff but you can find everything you need to know in [this hashcat article](https://hashcat.net/forum/thread-7717.html).
 
 ## WPS
 
@@ -243,6 +255,6 @@ This command also will show if the AP has blocked WPS access due to internal ant
 ```
 bully -b <bssid> <interface>
 ```
-The AP could block WPS after certain failed attempts, to try to avoid this we could add more delay between tries (But this is not perfect). There is an attack called [Pixie Dust](https://www.quora.com/How-does-a-WPS-pixie-attack-work), it is offline and if the AP is vulnerable you could get the PIN in just minutes thanks to a problem with the random generation of nonces used. Bully offers this attack too with the `-d` flag so use it if possible to improve you chances.
+The AP could block WPS after certain failed attempts, to try to avoid this we could add more delay between tries (But this is not perfect). There is an attack called [Pixie Dust](https://www.quora.com/How-does-a-WPS-pixie-attack-work), it is offline and if the AP is vulnerable you could get the PIN in just minutes thanks to a problem with the random generation of nonces used. Bully offers this attack too with the `-d` flag so use it if possible to improve your chances.
 
 
