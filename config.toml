@@ -102,7 +102,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # whether to show the author
     author = true
     # Site creation time
-    since = 2022
+    since = 2023
 
   # Home page config
   [params.home]
