@@ -193,6 +193,8 @@ If you want to learn more about this part, I recommend [this article](https://ww
 
 ### Attack
 
+**NOTE: It is true that in order to connect to a WPA2 network your attack surface is pretty limited but you could use [key reinstallation attacks (KRACKs)](https://www.krackattacks.com/) against vulnerable client devices to decrypt traffic.**
+
 The only way of attacking WPA is brute force, it is not fancy but is what we have. First we will need to capture a 4-way handshake, in order to that we can start capturing packages as we saw earlier and then deauthenticate a user from the target network. That way the client will try to connect back to the AP and we will get the handshake (Also we could just wait for a new client).
 
 There is another method in order to obtain a handshake, `airbase-ng`. Remember when we use this tool for WEP? Well, thanks to how the WPA handshake works we can start a Rogue AP impersonating a SSID without knowing the password for it (The client send us the MIC in the second step so that is enough) and trick a user to connect to give us the handshake:
