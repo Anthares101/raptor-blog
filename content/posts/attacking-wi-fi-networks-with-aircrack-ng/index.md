@@ -2,7 +2,7 @@
 title: "Attacking Wi-Fi networks with Aircrack-ng"
 description: Post about how Wi-Fi networks can be attacked with the Aircrack-ng suite
 date: 2022-09-12
-lastmod: 2022-12-25
+lastmod: 2023-05-05
 draft: false
 tags: ["wifi", "red team", "network"]
 categories: ["Offensive Cybersecurity"]
@@ -202,6 +202,8 @@ During the communication the PSK is never sent through the wireless medium. The 
 If you want to learn more about this part, I recommend [this article](https://www.wifi-professionals.com/2019/01/4-way-handshake).
 
 ### Attack
+
+**NOTE: It is true that in order to connect to a WPA2 network your attack surface is pretty limited but you could use [key reinstallation attacks (KRACKs)](https://www.krackattacks.com/) against vulnerable client devices to decrypt traffic.**
 
 The only way of attacking WPA is brute force, it is not fancy but is what we have. First we will need to capture a 4-way handshake, in order to that we can start capturing packages as we saw earlier and then deauthenticate a user from the target network. That way the client will try to connect back to the AP and we will get the handshake (Also we could just wait for a new client).
 
