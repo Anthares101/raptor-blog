@@ -196,4 +196,4 @@ Once this is ready, we can setup a conection in the Android application and star
 
 <img src="images/ipgeolocation-mobile.jpeg" style="max-width:60%; vertical-align: top;" alt="Image IpGeolocation showing that the Android device is routing the traffic through DNS">
 
-This setup could be used through a computer too! You could use the SSH trick we saw before or the script called `iodine-client-start` that is installed with Iodine to connect to your DNS VPN just as the phone does.
+**NOTE: This setup could be used through a computer too! You could use the SSH trick we saw before or the script called `iodine-client-start` that is installed with Iodine to connect to your DNS VPN just as the phone does.**
