@@ -7,6 +7,11 @@ The idea of this technique is to use the DNS protocol to route all the traffic, 
 
 The reason why this works is that normally when captive portals or firewalls rules are setup, the administrators block all TCP and UDP connections when certain rule is met but they forget about checking DNS queries. This means that, if all our traffic is routed through DNS, we will be able to bypass all this protections.
 
+In this article, I will explain two ways of setup:
+
+- The first one will make sure the tunnel is encrypted like a proper VPN using SSH, easier to setup but only usable on computers or rooted phones.
+- The second is a bit harder to setup but you will be able to use it in both non rooted phones and computers (No encryption though).
+
 ## Requisites
 
 - A VPS or machine that can be reached from the Internet for DNS requests without problems.
@@ -19,7 +24,7 @@ First of all we need to setup our VPS to be the authoritative DNS for one of our
 
 Setup in one of our domains a NS record for a subdomain or our whole domain. In my case I will setup `dns.test.com` NS record to point to my VPS  `vps.francecentral.cloudapp.azure.com`. This will tell Cloudflare that now, the authoritative DNS server is our VPS so the DNS queries should be sent to it. Make sure you point your NS record to an A record, at least in Cloudflare this is necessary and the record creation will fail if you try to use an IP address or a CNAME.
 
-With that out of the way, go to your server and install [Iodine](https://github.com/yarrick/iodine). Now execute this (Make sure port 53 TCP/UDP is available):
+With that out of the way, go to your server and install [Iodine](https://github.com/yarrick/iodine) (You can do it through `apt`). Now execute this (Make sure port 53 TCP/UDP is available):
 
 ```bash
 raptor@kestrel:~$ sudo iodined -f 10.2.0.1 dns.test.com
@@ -32,7 +37,7 @@ Opened IPv6 UDP socket
 Listening to dns for domain dns.test.com
 ```
 
-This will start the tool in server mode, the 10.2.0.1 IP is just the /24 CIDR block that the tunnel will use, for example:  
+This will start the tool in server mode, the 10.2.0.1 IP is just the /27 CIDR block that the tunnel will use, for example:  
 
 ```
  SERVER ------------------------------------ CLIENT
@@ -43,7 +48,7 @@ Make sure that the IP block used by the tunnel is not already in use by any of y
 
 ### Troubleshooting
 
-Port 53 TCP/UDP has to be reachable and obviouly useable by [Iodine](https://github.com/yarrick/iodine). If you have properly setup the network rules for your VPS to allow traffic to this port but you are still having problems, probably you have the service `systemd-resolved` running in the port 53. Change the file `/etc/resolv.conf` to point to a public DNS server and stop the service.
+Port 53 TCP/UDP has to be reachable and obviouly useable by [Iodine](https://github.com/yarrick/iodine). If you have properly setup the network rules for your VPS to allow traffic to this port but you are still having problems, maybe you should check `iptables` configuration.
 
 ## Client setup
 
@@ -51,7 +56,7 @@ Once the Server is prepared, let’s connect to it. In our machine we will need 
 
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ sudo iodine -f -r vps.francecentral.cloudapp.azure.com dns.test.com                1 ⨯
+└─$ sudo iodine -f -r vps.francecentral.cloudapp.azure.com dns.test.com
 Enter password: 
 Opened dns0
 Opened IPv4 UDP socket
@@ -129,7 +134,11 @@ Basically with this app we are doing the same as we did in the previous section 
 1. The traffic is not encrypted but if you use secure protocols everything should be fine (As usual you know).
 2. The routing is not performed by SSH and it is the Linux server the one doing the job.
 
-The second point is the problem, we need to make sure that the server is able to forward traffic and also that it is working as a NAT to avoid problems when the packages return. To get all this working I wrote this script that setup IP formarding and NAT before running [Iodine](https://github.com/yarrick/iodine) (Also it make sure to clean up everything when we close the server):
+The second point is the problem, we need to make sure that the server is able to forward traffic and also that it is working as a NAT to avoid problems when the packages return. 
+
+To get all this working I wrote two script that setup IP formarding and NAT before running [Iodine](https://github.com/yarrick/iodine). Also they make sure to clean up everything when we close the server.
+
+Why two scripts? Well the first one is for hosts without Docker or any container stuff running:
 
 ```bash
 #! /bin/bash
@@ -147,6 +156,28 @@ echo 0 > /proc/sys/net/ipv4/ip_forward
 iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 ```
 
+The second script is for hosts that has Docker running, I know is pretty common so I decided to include this here too since the setup is a bit different:
+
+```bash
+#! /bin/bash
+
+echo "Preparing system for ip forwarding..."
+iptables -t nat -A POSTROUTING -s 10.2.0.0/27 -o eth0 -j MASQUERADE
+iptables -I DOCKER-USER -i dns0 -o eth0 -j ACCEPT
+iptables -I DOCKER-USER -i eth0 -o dns0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+echo
+iodined -c -f 10.2.0.1 -P PaSSW0RD dns.test.com
+echo
+
+echo "Cleaning configuration..."
+iptables -t nat -D POSTROUTING -s 10.2.0.0/27 -o eth0 -j MASQUERADE
+iptables -D DOCKER-USER -i dns0 -o eth0 -j ACCEPT
+iptables -D DOCKER-USER -i eth0 -o dns0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+```
+
+**DISCLAIMER: The first script configuration will make the server forward any packet that reach to it, maybe you should consider a more restrictive setup with `iptables` for production use. The script for Docker hosts only allow the forwarding for packets comming through the DNS tunnel.**
+
 One more thing, sometimes your VPS provider can disable IP forwarding at the network interface level, make sure to enable it there too following the documentation (Thanks Azure for losing my time figuring this out).
 
 Once this is ready, we can setup a conection in the Android application and start using our DNS tunnel without problems in our non-rooted phone!
@@ -154,4 +185,6 @@ Once this is ready, we can setup a conection in the Android application and star
 <img src="images/andiodine.jpeg" style="max-width:39%" alt="Image of Andiodine app connected to the VPS">
 
 <img src="images/ipgeolocation-mobile.jpeg" style="max-width:60%; vertical-align: top;" alt="Image IpGeolocation showing that the Android device is routing the traffic through DNS">
+
+This setup could be used through a computer too! You could use the SSH trick we saw before or the script called `iodine-client-start` that is installed with Iodine to connect to your DNS VPN just as the phone does.
 
