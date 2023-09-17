@@ -92,6 +92,6 @@ Once the flashing process is complete everything should be good to go. Switching
 <img src="images/marauder_pre.png" alt="Image of the Marauder app">
 <img src="images/marauder_run.png" alt="Image of an AP scan using Marauder app">
 
-The part of configuring an evil portal or using the Marauder app is not covered here. Just go to its repective documentation pages and take a look, the hard part is covered here I promise!
+The part of configuring an evil portal or using the Marauder app is not covered here. Just go to their repective documentation pages and take a look, the hard part is covered here I promise!
 
-**NOTE: If someone wants to know a bit more about how the ESP32 chip works, [this StackOverflow question](https://stackoverflow.com/questions/67149410/what-are-the-files-boot-app0-bin-and-bootloader-dio-80m-bin-for-esp32-arduin) is awesome**
+**NOTE: If someone wants to know a bit more about how the ESP32 chip works, [this StackOverflow question](https://stackoverflow.com/questions/67149410/what-are-the-files-boot-app0-bin-and-bootloader-dio-80m-bin-for-esp32-arduin) is awesome.**
