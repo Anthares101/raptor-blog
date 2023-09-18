@@ -3,7 +3,7 @@ title: "How to setup the Flipper Zero for Wi-Fi attacks"
 description: Post about how to setup the Flipper Zero in order to perform different Wi-Fi attacks
 date: 2023-09-16
 lastmod: 2023-09-16
-draft: true
+draft: false
 tags: ["wifi", "red team", "network"]
 categories: ["Offensive Cybersecurity"]
 images: ["/how-to-setup-the-flipper-zero-to-attack-wi-fi/images/banner.jpg"]
