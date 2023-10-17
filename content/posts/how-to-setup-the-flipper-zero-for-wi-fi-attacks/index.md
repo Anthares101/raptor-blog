@@ -6,7 +6,7 @@ lastmod: 2023-09-16
 draft: false
 tags: ["wifi", "red team", "network"]
 categories: ["Offensive Cybersecurity"]
-images: ["/how-to-setup-the-flipper-zero-to-attack-wi-fi/images/banner.jpg"]
+images: ["/how-to-setup-the-flipper-zero-for-wi-fi-attacks/images/banner.jpg"]
 featuredImage: "images/banner.jpg"
 featuredImagePreview: "images/banner.jpg"
 ---
