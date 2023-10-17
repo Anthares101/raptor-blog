@@ -2,7 +2,7 @@
 title: "MAGI Project"
 description: Write up about the process of creating my personal Kubernetes cluster
 date: 2022-02-09
-lastmod: 2022-08-09
+lastmod: 2023-10-17
 draft: false
 tags: ["kubernetes", "blue team", "homelab"]
 categories: ["Infrastructure"]
@@ -326,6 +326,8 @@ I created a Telegram bot and configured Grafana to send alerts to me using it. I
 
 #### Network Policies
 
+**NOTE: A message from the future, looks like K3S has some kind of controller that allow network policies, not as advanced as the Calico ones but enough. You can probably skip this section.**
+
 Checking K3S documentation I noticed that the default [CNI](https://github.com/containernetworking/cni) was Flannel. Flannel is really cool because is pretty fast but is not able to handle network policies. I really want to limit the conections a pod can do, specially if the pod is accessed from the internet. I normally edit the iptables rules in my Raspberry Pi to handle this restrictions in Docker but since Kubernetes has network policies to handle this stuff I want to use them.
 
 I researched my options here and I found this post about installing Canal: 
@@ -403,7 +405,7 @@ NAME                   READY   SECRET                 AGE
 app-ingress-cert       True    app-ingress-cert       2s
 ```
 
-Also you should be able to see that the certificate is valid visiting the site. I only have a problem know, no Fail2ban in front of the services facing the internet. 
+Also you should be able to see that the certificate is valid visiting the site. I only have a problem now, no Fail2ban in front of the services facing the internet. 
 
 The first thing I tried was to use Cloudflare proxying to filter the traffic. This works great but you should also filter the IPs that enter your network to only allow Cloudflare IPs to avoid attackers trying to bypass the Cloudflare protection. While checking for the Cloudflare IPs is when I found my favourite solution until now: 
 
