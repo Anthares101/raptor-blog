@@ -80,7 +80,9 @@ Setting downstream fragment size to max 1186...
 Connection setup complete, transmitting data.
 ```
 
-The output should be like that if everything went ok. You can also verify that the tunnel is open by going to a terminal and checking `ifconfig`, if you have the adapter `dns0` all is good:
+The output should be like that if everything went ok. The `vps.francecentral.cloudapp.azure.com` part of the command is **optional**, basically you can specify the nameserver you want to use, if your server is reachable put it here to improve speed.
+
+Verify that the tunnel is open by going to a terminal and checking `ifconfig`, if you have the adapter `dns0` all is good:
 
 ```bash
 ┌──(kali㉿kali)-[~]
