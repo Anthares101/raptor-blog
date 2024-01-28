@@ -316,7 +316,7 @@ I created a Telegram bot and configured Grafana to send alerts to me using it. I
 
 #### Network Policies
 
-**NOTE: A message from the future, looks like K3S has some kind of controller that allow network policies, not as advanced as the Calico ones but enough. You can probably skip this section.**
+**NOTE: A message from the future, looks like K3S has some kind of controller that allow network policies, not as advanced as the Calico ones but enough. Actually, I decided to drop Canal CNI installation from the installation playbook, you can probably skip this section.**
 
 Checking K3S documentation I noticed that the default [CNI](https://github.com/containernetworking/cni) was Flannel. Flannel is really cool because is pretty fast but is not able to handle network policies. I really want to limit the conections a pod can do, specially if the pod is accessed from the internet. I normally edit the iptables rules in my Raspberry Pi to handle this restrictions in Docker but since Kubernetes has network policies to handle this stuff I want to use them.
 
