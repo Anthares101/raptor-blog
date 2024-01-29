@@ -43,7 +43,7 @@ Once I had all running, nearly all the images in the cluster are managed by Keel
 
 #### K3S and Linux
 
-Well I created a little Ansible playbook to update all the cluster nodes OS, the K3S version and also the monitoring stack. You can find the playbook [here](https://github.com/anthares101/k3s-pi-cluster-upgrade).
+Well I created a little Ansible playbook to update all the cluster nodes OS and the K3S version. You can find the playbook [here](https://github.com/anthares101/k3s-pi-cluster-upgrade).
 
 Using that and a little script, I’m able to update everything in my home lab!
 
@@ -51,7 +51,7 @@ Using that and a little script, I’m able to update everything in my home lab!
 #! /bin/bash
 
 # raspi-maintenance
-echo "Updating cluster nodes, K3S and monitoring stack..."
+echo "Updating cluster nodes and K3S..."
 (cd ~/Cluster/k3s-pi-cluster-upgrade && ansible-playbook main.yaml -K)
 
 echo "Updating this system..."
