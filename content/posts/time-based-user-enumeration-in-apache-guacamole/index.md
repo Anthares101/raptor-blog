@@ -68,7 +68,7 @@ In order to achieve everything I commented before, I created [a little Python sc
 
 Keep in mind that this is a local Guacamole intance, the network is not a problem. For targets accross the network you may need to play with some of the script parameters in order to get reliable results.
 
-**NOTE: As you may already have already guessed, this technique is not only effective against Apache Guacamole. Any software using a similar login system is vulnerable.**
+**NOTE: As you may already have guessed, this technique is not only effective against Apache Guacamole. Any software using a similar login system is vulnerable.**
 
 ## Any fix?
 
