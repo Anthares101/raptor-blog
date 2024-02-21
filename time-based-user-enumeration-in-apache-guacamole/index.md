@@ -58,6 +58,8 @@ In order to achieve everything I commented before, I created [a little Python sc
 
 Keep in mind that this is a local Guacamole intance, the network is not a problem. For targets accross the network you may need to play with some of the script parameters in order to get reliable results.
 
+**NOTE: As you may already have already guessed, this technique is not only effective against Apache Guacamole. Any software using a similar login system is vulnerable.**
+
 ## Any fix?
 
 A logical question here is, how could I avoid this? An interesting solution is to add a "dummy" hashing operation even if the user does not exist, which should avoid the compute difference between a valid and a non valid user. The thing is that even with that sort of fix, the connection to the database itself could mean a similar vector based on time (More complex though).
