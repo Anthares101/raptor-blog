@@ -180,8 +180,6 @@ iptables -D DOCKER-USER -i eth0 -o dns0 -m conntrack --ctstate ESTABLISHED,RELAT
 
 **DISCLAIMER: The first script configuration will make the server forward any packet that reach to it, maybe you should consider a more restrictive setup with `iptables` for production use. The script for Docker hosts only allow the forwarding for packets comming through the DNS tunnel.**
 
-One more thing, sometimes your VPS provider can disable IP forwarding at the network interface level, make sure to enable it there too following the documentation (Thanks Azure for losing my time figuring this out).
-
 Once this is ready, we can setup a conection in the Android application and start using our DNS tunnel without problems in our non-rooted phone!
 
 <img src="images/andiodine.jpeg" style="max-width:39%" alt="Image of Andiodine app connected to the VPS">
